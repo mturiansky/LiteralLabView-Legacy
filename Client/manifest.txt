@@ -1,0 +1,2 @@
+Main-Class: LLW
+Class-Path: lib/httpclient-4.3.6.jar lib/httpcore-4.3.3.jar lib/commons-logging-1.6.jar lib/commons-codec-1.6.jar
