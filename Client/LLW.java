@@ -1,6 +1,7 @@
 public class LLW {
 	public static void main(String args[]) {
-		System.out.println("Hello, world!");
-		PostCreator a = new PostCreator("test","test");
+		System.out.println("[+] Program booted up.");
+		PostCreator a = new PostCreator("http://howslyfebeen.pythonanywhere.com/upload","manifest.txt","test");
+		a.send();
 	}
 }
