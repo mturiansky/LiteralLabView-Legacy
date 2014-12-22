@@ -1,0 +1,15 @@
+.page-header {
+	margin-top: 75px;
+}
+
+.thumbnail {
+	width: 500px;
+}
+
+.thumb-img, .thumb-small {
+	width: 150px;
+}
+
+#table-medium {
+	width: 150px;
+}

@@ -23,3 +23,15 @@ class PostHandler():
 		d = DataSet(date,project_name,screen_img,camera_img)
 		db.session.add(d)
 		db.session.commit()
+
+	def get_recent(self):
+		count = DataSet.query.count()
+		return DataSet.query.get(count)
+
+	def search_data(self,inp):
+		results = []
+		for a in DataSet.query.all():
+			if inp in a.date or inp in a.project_name:
+				if a not in results:
+					results.append(a)
+		return results

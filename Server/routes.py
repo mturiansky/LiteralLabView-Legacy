@@ -5,7 +5,7 @@ import os
 
 @app.route('/')
 def home():
-	return render_template('index.html')
+	return render_template('index.html', recent=PH().get_recent())
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -25,3 +25,12 @@ def upload():
 			return 'MESSAGE RECEIVED'
 		return 'BAD INPUTS'
 	return 'CONNECTION DENIED'
+
+@app.route('/view/<name>')
+def view(name):
+	return send_from_directory(app.config['UPLOADS_FOLDER'], name)
+
+@app.route('/search')
+def search():
+	if 'q' in request.args:
+		return render_template('search.html', results=PH().search_data(request.args['q']))
