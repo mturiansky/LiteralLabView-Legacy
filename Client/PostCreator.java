@@ -1,6 +1,8 @@
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.FileSystems;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -10,15 +12,22 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-
 public class PostCreator {
 	private String url;
+	private String proj_name;
 	private String screen_img = "./tempscreenshot.png";
 	private String camera_img = "./tempcamerashot.png";
 
-	public PostCreator(String url) {
+	public PostCreator(String url, String name) {
 		System.out.println("[*] Loading variables");
 		this.url = url;
+		this.proj_name = name;
+	}
+
+	private String now() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(cal.getTime());
 	}
 
 	public void send() {
@@ -31,8 +40,8 @@ public class PostCreator {
 			File screen_file = new File(this.screen_img);
 			File camera_file = new File(this.camera_img);
 			StringBody secret_key = new StringBody("804e33bcd2dfc0cb435fe64ce20646fe");
-			StringBody date = new StringBody("TEST");
-			StringBody project_name = new StringBody("TEST PROJECT");
+			StringBody date = new StringBody(this.now());
+			StringBody project_name = new StringBody(this.proj_name);
 
 			mpe.addPart("secret_key",secret_key);
 			mpe.addPart("date",date);
