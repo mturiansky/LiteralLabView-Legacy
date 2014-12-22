@@ -4,8 +4,11 @@ import javax.swing.*;
 
 public class LLW {
 	JFrame gui;
+	GridBagConstraints c;
 	JLabel label1;
 	JLabel label2;
+	JLabel label3;
+	JLabel label4;
 	JTextField text1;
 	JTextField text2;
 	JButton start;
@@ -23,7 +26,7 @@ public class LLW {
 		gui.setLocationRelativeTo(null);
 
 		gui.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		c = new GridBagConstraints();
 
 		label1 = new JLabel("Duration (s):", SwingConstants.CENTER);
 		c.insets = new Insets(5,10,5,10);
@@ -68,6 +71,29 @@ public class LLW {
 			System.out.println("[*] Starting timer");
 			duration = Integer.parseInt(text1.getText());
 			interval = Integer.parseInt(text2.getText());
+
+			gui.remove(text1);
+			gui.remove(text2);
+
+			label3 = new JLabel(Integer.toString(duration), SwingConstants.CENTER);
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.insets = new Insets(5,10,5,10);
+			c.gridwidth = 1;
+			c.gridx = 1;
+			c.gridy = 0;
+			gui.add(label3, c);
+
+			label4 = new JLabel(Integer.toString(interval), SwingConstants.CENTER);
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridy = 1;
+			gui.add(label4, c);
+
+			start.removeActionListener(this);
+			start.setText("Running...");
+
+			gui.validate();
+			gui.repaint();
+
 			time = new Timer(interval*1000, new Poster());
 			time.start();
 		}
