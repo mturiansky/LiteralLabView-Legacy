@@ -15,10 +15,12 @@ public class LLW {
 	JTextField text1;
 	JTextField text2;
 	JButton start;
+	JProgressBar bar;
 	Timer time;
 	int duration;
 	int interval;
 	String savedname;
+	int prog;
 
 	public LLW() {
 		System.out.println("[*] Creating gui");
@@ -106,7 +108,18 @@ public class LLW {
 			gui.add(label4, c);
 
 			start.removeActionListener(this);
-			start.setText("Running...");
+			gui.remove(start);
+
+			bar = new JProgressBar(SwingConstants.HORIZONTAL, 0, duration/interval);
+			bar.setPreferredSize(new Dimension(350, 20));
+			bar.setStringPainted(true);
+			prog = 0;
+			bar.setValue(prog);
+			c.insets = new Insets(5,0,5,0);
+			c.gridx = 0;
+			c.gridy = 3;
+			c.gridwidth = 2;
+			gui.add(bar, c);
 
 			gui.validate();
 			gui.repaint();
@@ -117,7 +130,7 @@ public class LLW {
 
 		private class Poster implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				if (duration >= 0) {
+				if (duration > 0) {
 					PhotoCapture pc = new PhotoCapture();
 					pc.takeScreenShot();
 					pc.takeCameraShot();
@@ -125,7 +138,10 @@ public class LLW {
 					p.send();
 					p.cleanup();
 					duration -= interval;
-				} else {
+					bar.setValue(++prog);
+				}
+
+				if (duration < interval) {
 					System.out.println("[+] Post sequence complete");
 					time.stop();
 				}
