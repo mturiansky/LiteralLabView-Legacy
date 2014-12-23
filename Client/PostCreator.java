@@ -15,8 +15,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 public class PostCreator {
 	private String url;
 	private String proj_name;
-	private String screen_img = "./tempscreenshot.png";
-	private String camera_img = "./tempcamerashot.png";
+	private String screen_img = Constants.tempscreen;
+	private String camera_img = Constants.tempcamera;
 
 	public PostCreator(String url, String name) {
 		System.out.println("[*] Loading variables");
@@ -39,7 +39,7 @@ public class PostCreator {
 
 			File screen_file = new File(this.screen_img);
 			File camera_file = new File(this.camera_img);
-			StringBody secret_key = new StringBody("804e33bcd2dfc0cb435fe64ce20646fe");
+			StringBody secret_key = new StringBody(Constants.secret_key);
 			StringBody date = new StringBody(this.now());
 			StringBody project_name = new StringBody(this.proj_name);
 

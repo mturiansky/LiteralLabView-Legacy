@@ -7,7 +7,7 @@ BUILD=build/
 TARGET=LiteralLabView.jar
 MAIN=LLW
 
-jar: build PostCreator PhotoCapture LLW manifest.txt
+jar: build Constants PostCreator PhotoCapture LLW manifest.txt
 	$(JJC) $(JJFLAGS) $(TARGET) manifest.txt -C $(BUILD) .
 
 LLW: LLW.java
@@ -18,6 +18,9 @@ PostCreator: PostCreator.java
 
 PhotoCapture: PhotoCapture.java
 	$(JC) $(JFLAGS) PhotoCapture.java $(CPATH)
+
+Constants: Constants.java
+	$(JC) $(JFLAGS) Constants.java $(CPATH)
 
 build:
 	mkdir $(BUILD)
