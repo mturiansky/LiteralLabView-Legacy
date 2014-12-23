@@ -5,22 +5,13 @@ import javax.swing.*;
 public class LLW {
 	JFrame gui;
 	GridBagConstraints c;
-	JLabel label1;
-	JLabel label2;
-	JLabel label3;
-	JLabel label4;
-	JLabel label5;
-	JLabel name;
-	JTextField proj_name;
-	JTextField text1;
-	JTextField text2;
+	JLabel label1, label2, label3, label4, label5, name;
+	JTextField proj_name, text1, text2;
 	JButton start;
 	JProgressBar bar;
 	Timer time;
-	int duration;
-	int interval;
+	int duration, interval, prog;
 	String savedname;
-	int prog;
 
 	public LLW() {
 		System.out.println("[*] Creating gui");
