@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.List;
+import java.util.Vector;
+import com.github.sarxos.webcam.Webcam;
 
 public class LLW {
 	Config conf;
@@ -10,6 +13,8 @@ public class LLW {
 	JTextField proj_name, text1, text2;
 	JButton start;
 	JProgressBar bar;
+	JComboBox combo;
+	List<Webcam> cams;
 	Timer time;
 	int duration, interval, prog;
 	String savedname;
@@ -22,7 +27,7 @@ public class LLW {
 
 		gui = new JFrame();
 		gui.setTitle("LiteralLabView");
-		gui.setSize(400,175);
+		gui.setSize(400,200);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.setLocationRelativeTo(null);
 
@@ -61,11 +66,19 @@ public class LLW {
 		c.gridx = 1;
 		gui.add(text2, c);
 
-		start = new JButton("Run");
-		c.insets = new Insets(5,50,5,50);
+		Vector<String> cam_names = new Vector<String>();
+		cams = PhotoCapture.findWebcams();
+		for (int i = 0; i < cams.size(); i++) cam_names.add(cams.get(i).getName());
+		combo = new JComboBox(cam_names);
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 2;
+		gui.add(combo,c);
+
+		start = new JButton("Run");
+		c.insets = new Insets(5,50,5,50);
+		c.gridx = 0;
+		c.gridy = 4;
 		gui.add(start, c);
 
 		gui.setVisible(true);
@@ -83,6 +96,7 @@ public class LLW {
 			savedname = proj_name.getText();
 
 			gui.remove(proj_name);
+			gui.remove(combo);
 			gui.remove(text1);
 			gui.remove(text2);
 
@@ -127,7 +141,7 @@ public class LLW {
 			public void actionPerformed(ActionEvent e) {
 				if (duration > 0) {
 					PhotoCapture.takeScreenShot(conf);
-					PhotoCapture.takeCameraShot(conf);
+					PhotoCapture.takeCameraShot(conf, cams.get(combo.getSelectedIndex()));
 					PostCreator p = new PostCreator(conf, savedname);
 					p.send();
 					p.cleanup();

