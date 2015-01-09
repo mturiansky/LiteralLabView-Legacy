@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class LLW {
+	Config conf;
 	JFrame gui;
 	GridBagConstraints c;
 	JLabel label1, label2, label3, label4, label5, name;
@@ -14,6 +15,9 @@ public class LLW {
 	String savedname;
 
 	public LLW() {
+		System.out.println("[*] Configuring program");
+		conf = new Config();
+
 		System.out.println("[*] Creating gui");
 
 		gui = new JFrame();
@@ -122,10 +126,9 @@ public class LLW {
 		private class Poster implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (duration > 0) {
-					PhotoCapture pc = new PhotoCapture();
-					pc.takeScreenShot();
-					pc.takeCameraShot();
-					PostCreator p = new PostCreator(Constants.url, savedname);
+					PhotoCapture.takeScreenShot(conf);
+					PhotoCapture.takeCameraShot(conf);
+					PostCreator p = new PostCreator(conf, savedname);
 					p.send();
 					p.cleanup();
 					duration -= interval;
