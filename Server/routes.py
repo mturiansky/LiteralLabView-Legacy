@@ -53,10 +53,12 @@ def upload():
 	return 'CONNECTION DENIED'
 
 @app.route('/view/<name>')
+@login_required
 def view(name):
 	return send_from_directory(app.config['UPLOADS_FOLDER'], name)
 
 @app.route('/search')
+@login_required
 def search():
 	if 'q' in request.args:
 		return render_template('search.html', results=PH().search_data(request.args['q']))
