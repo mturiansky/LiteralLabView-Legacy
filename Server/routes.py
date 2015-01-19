@@ -5,6 +5,7 @@ from flask.ext.login import current_user, login_required, login_user, logout_use
 import os
 
 @app.route('/')
+@login_required
 def home():
 	return render_template('index.html', recent=PH().get_recent())
 
