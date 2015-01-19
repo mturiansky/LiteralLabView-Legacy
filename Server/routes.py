@@ -18,7 +18,7 @@ def login():
 			if user:
 				if login_user(user, remember=rem):
 					current_user.auth_toggle()
-					return redirect(url_for('home'))
+					return redirect(request.args.get("next") or url_for('home'))
 			else:
 				flash('Invalid username or password')
 	return render_template('login.html')
