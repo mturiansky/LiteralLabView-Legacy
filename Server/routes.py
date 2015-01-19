@@ -16,7 +16,7 @@ def login():
 			user = PH().verify_user(request.form['username'], request.form['password'])
 			rem = "remember" in request.form
 			if user:
-				if login_user(user, remember=remember):
+				if login_user(user, remember=rem):
 					current_user.auth_toggle()
 					return redirect(url_for('home'))
 			else:

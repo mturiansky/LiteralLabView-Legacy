@@ -1,5 +1,6 @@
 from setup import app, db
 from datetime import datetime
+from flask.ext.login import UserMixin
 
 class DataSet(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +15,7 @@ class DataSet(db.Model):
 		self.screen_img = screen_img
 		self.camera_img = camera_img
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80))
 	passwd = db.Column(db.String(80))
@@ -64,5 +65,5 @@ class PostHandler():
 
 	def verify_user(self,name,password):
 		user = User.query.filter_by(name=name).first()
-		if user and password == user.password:
+		if user and password == user.passwd:
 			return user
