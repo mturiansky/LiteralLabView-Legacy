@@ -1,11 +1,36 @@
 from flask import render_template, redirect, url_for, request, send_from_directory, flash
-from setup import app
+from setup import app, lm
 from models import PostHandler as PH
+from flask.ext.login import current_user, login_required, login_user, logout_user
 import os
 
 @app.route('/')
 def home():
 	return render_template('index.html', recent=PH().get_recent())
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+	if request.method == 'POST':
+		if "username" in request.form and "password" in request.form:
+			user = PH().verify_user(request.form['username'], request.form['password'])
+			rem = "remember" in request.form
+			if user:
+				if login_user(user, remember=remember):
+					current_user.auth_toggle()
+					return redirect(url_for('home'))
+			else:
+				flash('Invalid username or password')
+	return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+	current_user.auth_toggle()
+	logout_user()
+	return redirect(url_for('login'))
+
+@lm.user_loader
+def load_user(id):
+	return PH().get_user(id)
 
 @app.route('/upload', methods=['POST'])
 def upload():

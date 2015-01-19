@@ -14,10 +14,33 @@ class DataSet(db.Model):
 		self.screen_img = screen_img
 		self.camera_img = camera_img
 
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(80))
+	passwd = db.Column(db.String(80))
+	auth = db.Column(db.Integer)
+
+	def __init__(self, name, passwd, auth=0):
+		self.name = name
+		self.passwd = passwd
+		self.auth = auth
+
+	def is_authenticated(self):
+		return self.auth
+
+	def auth_toggle(self):
+		if self.auth:
+			self.auth = 0
+		else:
+			self.auth = 1
+		db.session.commit()
+
 class PostHandler():
 	def make_db(self):
 		print "[*] Creating Database!"
 		db.create_all()
+		db.session.add(User('admin', 'admin'))
+		db.session.commit()
 
 	def add_data(self,date,project_name,screen_img,camera_img):
 		d = DataSet(date,project_name,screen_img,camera_img)
@@ -35,3 +58,11 @@ class PostHandler():
 				if a not in results:
 					results.append(a)
 		return results
+
+	def get_user(self,id):
+		return User.query.get(id)
+
+	def verify_user(self,name,password):
+		user = User.query.filter_by(name=name).first()
+		if user and password == user.password:
+			return user
