@@ -24,8 +24,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <!--<li><a href="{{ url_for('home') }}">Home</a></li>-->
-            <li><a href="#">Archives</a></li>
+            {% if current_user.name != 'Anonymous' %}<li><a href="{{ url_for('logout')}}">Log out, {{ current_user.name }}</a></li>{% endif %}
           </ul>
 
           <form class="navbar-form navbar-right" role="search" action="{{ url_for('search') }}" method="get">
