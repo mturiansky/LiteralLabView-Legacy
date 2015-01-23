@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, AnonymousUserMixin
+from flask_sslify import SSLify
 import os
 
 app = Flask(__name__)
@@ -10,6 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/llw.db'
 app.config['UPLOADS_FOLDER'] = os.path.join(os.getcwd(),'uploads')
 
 db = SQLAlchemy(app)
+
+sslify = SSLify(app)
 
 lm = LoginManager()
 lm.login_view = "login"
