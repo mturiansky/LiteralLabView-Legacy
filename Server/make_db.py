@@ -1,2 +1,2 @@
-from models import PostHandler as PH
+from models import ProgramHandler as PH
 PH().make_db()

@@ -20,14 +20,19 @@ class User(db.Model, UserMixin):
 	name = db.Column(db.String(80))
 	passwd = db.Column(db.String(80))
 	auth = db.Column(db.Integer)
+	admin = db.Column(db.Integer)
 
-	def __init__(self, name, passwd, auth=0):
+	def __init__(self, name, passwd, auth=0, admin=0):
 		self.name = name
 		self.passwd = passwd
 		self.auth = auth
+		self.admin = admin
 
 	def is_authenticated(self):
 		return self.auth
+
+	def is_admin(self):
+		return self.admin
 
 	def auth_toggle(self):
 		if self.auth:

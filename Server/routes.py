@@ -62,3 +62,7 @@ def view(name):
 def search():
 	if 'q' in request.args:
 		return render_template('search.html', results=PH().search_data(request.args['q']))
+
+@app.route('/admin')
+def admin():
+	return 'admin test page'
