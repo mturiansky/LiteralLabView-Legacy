@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, request, send_from_directory, flash
 from setup import app, lm
-from models import PostHandler as PH
+from models import ProgramHandler as PH
 from flask.ext.login import current_user, login_required, login_user, logout_user
 import os
 

@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
 			self.auth = 1
 		db.session.commit()
 
-class PostHandler():
+class ProgramHandler():
 	def make_db(self):
 		print "[*] Creating Database!"
 		db.create_all()
