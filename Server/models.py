@@ -45,8 +45,9 @@ class ProgramHandler():
 	def make_db(self):
 		print "[*] Creating Database!"
 		db.create_all()
-		db.session.add(User('admin', 'admin'))
+		db.session.add(User('admin', 'admin', admin=1))
 		db.session.commit()
+		print "[+] Database created: /tmp/llw.db"
 
 	def add_data(self,date,project_name,screen_img,camera_img):
 		d = DataSet(date,project_name,screen_img,camera_img)

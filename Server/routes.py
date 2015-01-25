@@ -65,4 +65,8 @@ def search():
 
 @app.route('/admin')
 def admin():
-	return 'admin test page'
+	if current_user.admin:
+		return render_template('admin.html')
+	else:
+		flash('Must be admin to access this page.')
+		return redirect(url_for('login'))
