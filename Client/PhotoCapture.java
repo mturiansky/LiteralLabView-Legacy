@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import com.github.sarxos.webcam.Webcam;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class PhotoCapture {
 	public static void takeCameraShot(Config conf, Webcam w) {
 		System.out.println("[*] Taking camera shot");
 		try {
+			w.setViewSize(new Dimension(640,480));
 			w.open();
 			BufferedImage camerashot = w.getImage();
 			ImageIO.write(camerashot, "PNG", new File(conf.tempcamera));
