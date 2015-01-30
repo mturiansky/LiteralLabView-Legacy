@@ -17,3 +17,11 @@
 .login {
 	width: 50%;
 }
+
+#left-pic {
+	float: left;
+}
+
+#right-pic {
+	float: right;
+}

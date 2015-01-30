@@ -3,8 +3,8 @@
 	<div class="page-header">
 		<h1>Current View - {{ recent.project_name }} - {{ recent.date }}</h1>
 	</div>
-	<table class="container">
-		<tr><td><a href="{{ url_for('view', name=recent.screen_img) }}" class="thumbnail"><img src="{{ url_for('view', name=recent.screen_img) }}" alt="Oops we couldn't find this image :("></a></td>
-		<td><a href="{{ url_for('view', name=recent.camera_img) }}" class="thumbnail"><img src="{{ url_for('view', name=recent.camera_img) }}" alt="Oops we couldn't find this image :("></a></td></tr>
-	</table>
+	<div class="container">
+		<div id="left-pic"><a href="{{ url_for('view', name=recent.screen_img) }}" class="thumbnail"><img src="{{ url_for('view', name=recent.screen_img) }}" alt="Oops we couldn't find this image :("></a></div>
+		<div id="right-pic"><a href="{{ url_for('view', name=recent.camera_img) }}" class="thumbnail"><img src="{{ url_for('view', name=recent.camera_img) }}" alt="Oops we couldn't find this image :("></a></div>
+	</div>
 {% endblock %}
