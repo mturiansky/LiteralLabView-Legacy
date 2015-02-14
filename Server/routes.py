@@ -70,3 +70,14 @@ def admin():
 	else:
 		flash('Must be admin to access this page.')
 		return redirect(url_for('login'))
+
+@app.route('/mobile')
+@login_required
+def mobile():
+	return render_template('mobile-index.html', recent=PH().get_recent())
+
+@app.route('/m/search')
+@login_required
+def mobile_search():
+	if 'q' in request.args:
+		return render_template('mobile-search.html', results=PH().search_data(request.args['q']))
