@@ -2,12 +2,14 @@ from flask import render_template, redirect, url_for, request, send_from_directo
 from setup import app, lm
 from models import ProgramHandler as PH
 from flask.ext.login import current_user, login_required, login_user, logout_user
+from flask.ext.mobility.decorators import mobile_template
 import os
 
 @app.route('/')
 @login_required
-def home():
-	return render_template('index.html', recent=PH().get_recent())
+@mobile_template('{mobile-}index.html')
+def home(template):
+	return render_template(template, recent=PH().get_recent())
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -59,9 +61,10 @@ def view(name):
 
 @app.route('/search')
 @login_required
-def search():
+@mobile_template('{mobile-}search.html')
+def search(template):
 	if 'q' in request.args:
-		return render_template('search.html', results=PH().search_data(request.args['q']))
+		return render_template(template, results=PH().search_data(request.args['q']))
 
 @app.route('/admin')
 def admin():
@@ -70,14 +73,3 @@ def admin():
 	else:
 		flash('Must be admin to access this page.')
 		return redirect(url_for('login'))
-
-@app.route('/mobile')
-@login_required
-def mobile():
-	return render_template('mobile-index.html', recent=PH().get_recent())
-
-@app.route('/m/search')
-@login_required
-def mobile_search():
-	if 'q' in request.args:
-		return render_template('mobile-search.html', results=PH().search_data(request.args['q']))
