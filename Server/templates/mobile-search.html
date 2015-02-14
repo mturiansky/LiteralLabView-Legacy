@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="page-header">
+        <h1>Results</h1>
+    </div>
+    <table class="container table">
+        <tr>
+            <td id="table-medium">Screen Image</td>
+            <td id="table-medium">Camera Image</td>
+        </tr>
+        <tr>
+            <td id="table-medium">Project</td>
+            <td>Date</td>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td><a href="{{ url_for('view', name=result.screen_img) }}" class="thumbnail thumb-small"><img src="{{ url_for('view', name=result.screen_img) }}" class="thumb-img" alt="Oops we couldn't find this image :("></a></td>
+            <td><a href="{{ url_for('view', name=result.camera_img) }}" class="thumbnail thumb-small"><img src="{{ url_for('view', name=result.camera_img) }}" class="thumb-img" alt="Oops we couldn't find this image :("></a></td>
+        </tr>
+        <tr>
+            <td id="table-medium"><strong>{{ result.project_name }}</strong></td>
+            <td>{{ result.date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
