@@ -9,7 +9,7 @@ import os
 @login_required
 @mobile_template('{mobile-}index.html')
 def home(template):
-	return render_template(template, recent=PH().get_recent())
+		return render_template(template, recent=PH().get_recent())
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -20,6 +20,7 @@ def login():
 			if user:
 				if login_user(user, remember=rem):
 					current_user.auth_toggle()
+					flash('User, ' + current_user.name + ', logged in.')
 					return redirect(request.args.get("next") or url_for('home'))
 			else:
 				flash('Invalid username or password')

@@ -39,6 +39,14 @@
 
     <div class="container theme-showcase" role="main">
     	{% block body %}{% endblock %}
+
+		<div class="container" style="position: relative; float: left; top: 10px; width: 95%;">
+		{% with messages = get_flashed_messages() %}{% for message in messages %}
+			<div class="alert alert-warning" role="alert">
+				<strong>Alert: </strong>{{ message }}
+			</div>
+		{% endfor %}{% endwith %}
+		</div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
