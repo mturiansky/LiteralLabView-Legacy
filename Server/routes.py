@@ -19,7 +19,7 @@ def login():
 			rem = "remember" in request.form
 			if user:
 				if login_user(user, remember=rem):
-					current_user.auth_toggle()
+					current_user.auth_toggle(1)
 					flash('User, ' + current_user.name + ', logged in.')
 					return redirect(request.args.get("next") or url_for('home'))
 			else:
@@ -28,7 +28,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-	current_user.auth_toggle()
+	current_user.auth_toggle(0)
 	logout_user()
 	return redirect(url_for('login'))
 

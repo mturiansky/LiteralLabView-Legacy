@@ -34,11 +34,8 @@ class User(db.Model, UserMixin):
 	def is_admin(self):
 		return self.admin
 
-	def auth_toggle(self):
-		if self.auth:
-			self.auth = 0
-		else:
-			self.auth = 1
+	def auth_toggle(self, x):
+		self.auth = x
 		db.session.commit()
 
 class ProgramHandler():
